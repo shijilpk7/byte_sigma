@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      //add new providers here
+      //add providers here
       create: (_) => CommonDataViewModel(),
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,

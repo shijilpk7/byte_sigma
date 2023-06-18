@@ -11,36 +11,36 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // You have to call it on your starting screen
+    // You have to call it on your starting screen to get the screen height and width
     SizeConfig().init(context);
     Provider.of<CommonDataViewModel>(context, listen: false).loadJsonData();
     return DefaultTabController(
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                    colors: <Color>[kPrimaryColor!, kSecondaryColor!])),
-          ),
-          bottom: TabBar(
-            tabs: [
-              Tab(child: const Text('ODI').animate().fadeIn(delay: 900.ms)),
-              Tab(child: const Text('TEST').animate().fadeIn(delay: 900.ms)),
-              Tab(child: const Text('T20').animate().fadeIn(delay: 900.ms)),
-            ],
-          ),
-          title: const Text('RANKING').animate().fadeIn(duration: 900.ms),
-          centerTitle: true,
-        ),
-        body: const TabBarView(
-          physics: NeverScrollableScrollPhysics(),
+            flexibleSpace: Container(
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                      colors: <Color>[kPrimaryColor!, kSecondaryColor!])),
+            ),
+            bottom: TabBar(
+              tabs: [
+                Tab(child: const Text('ODI').animate().fadeIn(delay: 900.ms)),
+                Tab(child: const Text('TEST').animate().fadeIn(delay: 900.ms)),
+                Tab(child: const Text('T20').animate().fadeIn(delay: 900.ms)),
+              ],
+            ),
+            title: const Text('RANKING').animate().fadeIn(duration: 900.ms),
+            centerTitle: true),
+        body: TabBarView(
+          physics: const NeverScrollableScrollPhysics(),
           children: [
-            HomePageTabBar(),
-            HomePageTabBar(),
-            HomePageTabBar(),
+            //tabindex 1:ODI, 2:TEST, 3:T20
+            HomePageTabBar(tabIndex: 1),
+            HomePageTabBar(tabIndex: 2),
+            HomePageTabBar(tabIndex: 3),
           ],
         ),
       ),
