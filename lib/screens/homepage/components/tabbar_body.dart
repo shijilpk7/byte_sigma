@@ -16,6 +16,7 @@ class TabBarBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Consumer<CommonDataViewModel>(builder: (context, cdv, _) {
+        Provider.of<CommonDataViewModel>(context, listen: false).loadJsonData();
         List<OdiBatsman>? val = tabIndex == 1
             ? subtabIndex == 1
                 ? cdv.teamDetails?.responseData?.result?.odiBatsman

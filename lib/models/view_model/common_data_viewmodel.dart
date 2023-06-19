@@ -16,5 +16,6 @@ class CommonDataViewModel extends ChangeNotifier {
         await rootBundle.loadString('assets/flutter_sytem_test_2.json');
     Map<String, dynamic> jsonData = jsonDecode(jsonString);
     _teamDetails = TeamDetails.fromJson(jsonData);
+    notifyListeners();
   }
 }

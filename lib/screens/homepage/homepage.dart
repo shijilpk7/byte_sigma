@@ -1,10 +1,8 @@
 import 'package:byte_sigma/constants.dart';
-import 'package:byte_sigma/models/view_model/common_data_viewmodel.dart';
 import 'package:flutter/material.dart';
 import '../../size_config.dart';
 import 'components/homepage_tabbar.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:provider/provider.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
@@ -13,7 +11,6 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     // You have to call it on your starting screen to get the screen height and width
     SizeConfig().init(context);
-    Provider.of<CommonDataViewModel>(context, listen: false).loadJsonData();
     return DefaultTabController(
       length: 3,
       child: Scaffold(
