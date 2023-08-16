@@ -61,9 +61,11 @@ jobs:
       # 4
       - name: Read version
         id: version
-        uses: juliangruber/read-file-action@v1
-        with:
-          path: version1.txt
+        run: |
+          echo "ANDROID_VERSION=$(cat pubspec.yaml | grep 'version:' | awk '{print $2}') >> $GITHUB_ENV"
+        # uses: juliangruber/read-file-action@v1
+        # with:
+        #   path: version1.txt
       # 5
       - name: Update version in YAML
         run: sed -i 's/99.99.99+99/${{ steps.version.outputs.content }}+${{ github.run_number }}/g' pubspec.yaml
