@@ -47,10 +47,9 @@ jobs:
 #     steps:
       # - uses: actions/checkout@v3
       # 2   
-      - name: Get version.txt
-        uses: actions/download-artifact@v2
-        with:
-          name: gitversion
+      - name: Get Android Version
+        id: get_version
+        run: echo "ANDROID_VERSION=$(cat pubspec.yaml | grep 'version:' | awk '{print $2}') >> $GITHUB_ENV"
       # 3
       - name: Create new file without newline char from version.txt
         run: tr -d '\n' < version.txt > version1.txt
