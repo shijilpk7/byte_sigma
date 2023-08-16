@@ -26,39 +26,6 @@ jobs:
       # 8
       - uses: actions/checkout@v3
 
-      # this is used to skip the sdk download if already present
-      # - uses: actions/setup-java@v3
-      #   with:
-      #     distribution: 'zulu'
-      #     java-version: "12.x"
-      #     cache: 'gradle' // 1
-       
-      # - uses: subosito/flutter-action@v2
-      #   with:
-      #     flutter-version: "3.0.0"
-      #     channel: 'stable'
-      #     cache: true // 2
-
-# build:
-#     name: Create Android Build
-#     # 1
-#     needs: version
-#     runs-on: ubuntu-latest
-#     steps:
-      # - uses: actions/checkout@v3
-      # 2   
-      # - name: Get Android Version
-      #   id: get_version
-      #   run: |
-      #     ANDROID_VERSION=$(cat pubspec.yaml | grep 'version:' | awk '{print $2}')
-      #     echo "ANDROID_VERSION=$ANDROID_VERSION" >> $GITHUB_ENV
-      #     echo "Incrementing version..."
-      #     NEW_VERSION=$(echo $ANDROID_VERSION | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
-      #     echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
-      # # 3
-      # - name: Create new file without newline char from version.txt
-      #   run: tr -d '\n' < version.txt > version1.txt
-      # 4
       - name: Read version
         id: version
         run: |
@@ -93,6 +60,19 @@ jobs:
           flutter-version: "3.0.0"
           channel: 'stable'
           cache: true
+      
+            # this is used to skip the sdk download if already present
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: "12.x"
+          cache: 'gradle' # 1
+       
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.0.0"
+          channel: 'stable'
+          cache: true // 2
      
       - name: Get dependencies
         run: flutter pub get
