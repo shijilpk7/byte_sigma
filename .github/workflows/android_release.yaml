@@ -26,60 +26,18 @@ jobs:
       # 8
       - uses: actions/checkout@v3
 
-      # this is used to skip the sdk download if already present
-      # - uses: actions/setup-java@v3
-      #   with:
-      #     distribution: 'zulu'
-      #     java-version: "12.x"
-      #     cache: 'gradle' // 1
-       
-      # - uses: subosito/flutter-action@v2
-      #   with:
-      #     flutter-version: "3.0.0"
-      #     channel: 'stable'
-      #     cache: true // 2
-
-# build:
-#     name: Create Android Build
-#     # 1
-#     needs: version
-#     runs-on: ubuntu-latest
-#     steps:
-      # - uses: actions/checkout@v3
-      # 2   
-      - name: Get Android Version
-        id: get_version
-        run: |
-          echo "ANDROID_VERSION=$(cat pubspec.yaml | grep 'version:' | awk '{print $2}') >> $GITHUB_ENV"
-      # 3
-      - name: Create new file without newline char from version.txt
-        run: tr -d '\n' < /path/to/version.txt > /path/to/version1.txt
-             ls -l
-             tr -d '\n' < version.txt > version1.txt
-
-      # 4
       - name: Read version
         id: version
-        uses: juliangruber/read-file-action@v1
-        with:
-          path: version1.txt
+        run: |
+          echo "ANDROID_VERSION=$(cat pubspec.yaml | grep 'version:' | awk '{print $2}') >> $GITHUB_ENV"
       # 5
       - name: Update version in YAML
         run: sed -i 's/99.99.99+99/${{ steps.version.outputs.content }}+${{ github.run_number }}/g' pubspec.yaml
-      
-      - name: Get current build number
-        id: get_build_number
-        run: echo "::set-output name=build_number::${GITHUB_RUN_NUMBER}"
 
-      - name: Display original version
-        run: cat pubspec.yaml
-
-      - name: Update version number
+      - name: Read version again
+        id: version1
         run: |
-         sed -i "s/version: .*/version: '1.0.${GITHUB_RUN_NUMBER}'/g" pubspec.yaml
-         cat pubspec.yaml
-      - name: Display updated version
-        run: cat pubspec.yaml
+          echo "ANDROID_VERSION=$(cat pubspec.yaml | grep 'version:' | awk '{print $2}') >> $GITHUB_ENV"
       # # 6
       # - name: Download Android keystore
       #   id: android_keystore
@@ -94,16 +52,19 @@ jobs:
       #     echo "storePassword=${{ secrets.STORE_PASSWORD }}" >> android/key.properties
       #     echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> android/key.properties
       #     echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> android/key.properties
+
+      # this is used to skip the sdk download if already present
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
           java-version: "12.x"
-          cache: gradle
+          cache: 'gradle' # 1
+       
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.0.0"
+          flutter-version: "3.10.6"
           channel: 'stable'
-          cache: true
+          cache: true // 2
      
       - name: Get dependencies
         run: flutter pub get
