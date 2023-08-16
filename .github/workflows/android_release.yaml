@@ -45,7 +45,7 @@ jobs:
 #     needs: version
 #     runs-on: ubuntu-latest
 #     steps:
-      - uses: actions/checkout@v3
+      # - uses: actions/checkout@v3
       # 2   
       - name: Get version.txt
         uses: actions/download-artifact@v2
