@@ -37,7 +37,7 @@ jobs:
       - name: Read version again
         id: version1
         run: |
-          echo "ANDROID_VERSION1=$(cat pubspec.yaml | grep 'version1:' | awk '{print $2}') >> $GITHUB_ENV"
+          echo "ANDROID_VERSION=$(cat pubspec.yaml | grep 'version:' | awk '{print $2}') >> $GITHUB_ENV"
       # # 6
       # - name: Download Android keystore
       #   id: android_keystore
