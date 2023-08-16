@@ -26,18 +26,24 @@ jobs:
       # 8
       - uses: actions/checkout@v3
 
-      - name: Read version
-        id: version
-        run: |
-          echo "ANDROID_VERSION=$(cat pubspec.yaml | grep 'version:' | awk '{print $2}') >> $GITHUB_ENV"
-      # 5
-      - name: Update version in YAML
-        run: sed -i 's/99.99.99+99/${{ steps.version.outputs.content }}+${{ github.run_number }}/g' pubspec.yaml
+      # - name: Read version
+      #   id: version
+      #   run: |
+      #     echo "ANDROID_VERSION=$(cat pubspec.yaml | grep 'version:' | awk '{print $2}') >> $GITHUB_ENV"
+      # # 5
+      # - name: Update version in YAML
+      #   run: sed -i 's/99.99.99+99/${{ steps.version.outputs.content }}+${{ github.run_number }}/g' pubspec.yaml
 
-      - name: Read version again
-        id: version1
-        run: |
-          echo "ANDROID_VERSION=$(cat pubspec.yaml | grep 'version:' | awk '{print $2}') >> $GITHUB_ENV"
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0.9.7
+        with:
+          versionSpec: "5.x"
+      - name: Use GitVersion
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v0.9.7
+      # 3
+      - name: Create version.txt with nuGetVersion
+        run: echo ${{ steps.gitversion.outputs.nuGetVersion  }} > version.txt
       # # 6
       # - name: Download Android keystore
       #   id: android_keystore
