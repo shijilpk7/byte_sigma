@@ -26,25 +26,25 @@ jobs:
       # 8
       - uses: actions/checkout@v3
 
-# this is used to skip the sdk download if already present
-- uses: actions/setup-java@v3
-  with:
-    distribution: 'zulu'
-    java-version: "12.x"
-    cache: 'gradle' // 1
- 
-- uses: subosito/flutter-action@v2
-  with:
-    flutter-version: "3.0.0"
-    channel: 'stable'
-    cache: true // 2
+      # this is used to skip the sdk download if already present
+      # - uses: actions/setup-java@v3
+      #   with:
+      #     distribution: 'zulu'
+      #     java-version: "12.x"
+      #     cache: 'gradle' // 1
+       
+      # - uses: subosito/flutter-action@v2
+      #   with:
+      #     flutter-version: "3.0.0"
+      #     channel: 'stable'
+      #     cache: true // 2
 
-build:
-    name: Create Android Build
-    # 1
-    needs: version
-    runs-on: ubuntu-latest
-    steps:
+# build:
+#     name: Create Android Build
+#     # 1
+#     needs: version
+#     runs-on: ubuntu-latest
+#     steps:
       - uses: actions/checkout@v3
       # 2   
       - name: Get version.txt
