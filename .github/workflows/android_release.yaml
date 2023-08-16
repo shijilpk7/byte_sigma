@@ -49,7 +49,12 @@ jobs:
       # 2   
       - name: Get Android Version
         id: get_version
-        run: echo "ANDROID_VERSION=$(cat pubspec.yaml | grep 'version:' | awk '{print $2}') >> $GITHUB_ENV"
+        run: |
+          ANDROID_VERSION=$(cat pubspec.yaml | grep 'version:' | awk '{print $2}')
+          echo "ANDROID_VERSION=$ANDROID_VERSION" >> $GITHUB_ENV
+          echo "Incrementing version..."
+          NEW_VERSION=$(echo $ANDROID_VERSION | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
+          echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
       # 3
       - name: Create new file without newline char from version.txt
         run: tr -d '\n' < version.txt > version1.txt
