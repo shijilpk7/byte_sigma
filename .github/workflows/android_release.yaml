@@ -72,8 +72,9 @@ jobs:
         run: cat pubspec.yaml
 
       - name: Update version number
-        run: sed -i "s/version: .*/version: '1.0.${{ steps.get_build_number.outputs.build_number }}'/g" pubspec.yaml
-
+        run: |
+         sed -i "s/version: .*/version: '1.0.${GITHUB_RUN_NUMBER}'/g" pubspec.yaml
+         cat pubspec.yaml
       - name: Display updated version
         run: cat pubspec.yaml
       # # 6
