@@ -6,9 +6,9 @@ on:
   # 2
   # add the branch in which you have to trigger the workflow
   push:
-    branches: [ "master" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "main" ]
     
 
   # 3
