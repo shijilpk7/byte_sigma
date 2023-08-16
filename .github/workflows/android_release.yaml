@@ -50,18 +50,8 @@ jobs:
       #     echo "storePassword=${{ secrets.STORE_PASSWORD }}" >> android/key.properties
       #     echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> android/key.properties
       #     echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> android/key.properties
-      - uses: actions/setup-java@v3
-        with:
-          distribution: 'zulu'
-          java-version: "12.x"
-          cache: gradle
-      - uses: subosito/flutter-action@v2
-        with:
-          flutter-version: "3.0.0"
-          channel: 'stable'
-          cache: true
-      
-            # this is used to skip the sdk download if already present
+
+      # this is used to skip the sdk download if already present
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
